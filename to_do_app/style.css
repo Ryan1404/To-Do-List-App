@@ -130,3 +130,10 @@ list-style: none;
     width: 20px;
     height: 20px;
 }
+
+/* Style for the task text when the checkbox is checked */
+.checkbox:checked + p {
+    text-decoration: line-through;
+    color: var(--teal);
+  }
+  

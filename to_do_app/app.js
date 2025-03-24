@@ -9,9 +9,13 @@ const addTask = () => {
     tasks.push({ text: text, completed: false });
     taskInput.value = ""; // Clear input after adding task
     updateTasksList();
+    console.log({tasks});
   }
 };
 
+const toggleTastComplete = (index) => {
+  tasks[index].completed=!tasks[index].completed;
+}
 // Function to update the displayed task list
 const updateTasksList = () => {
   const taskList = document.getElementById('task-list');
