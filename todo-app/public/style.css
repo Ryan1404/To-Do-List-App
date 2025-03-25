@@ -1,167 +1,342 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-:root {
-    /* Base Colors */
-    --background: #1e1e1e; /* Dark background for the body */
-    --text: #fff; /* White text for contrast */
-    --secondaryBackground: #2c2c2c; /* Slightly lighter background for input fields */
-    
-    /* Red and variants */
-    --red: #9b2d44; /* Darker, rich red for the main theme */
-    --red-light: #cc3d58; /* Lighter red for hover and focus states */
-    --red-dark: #6c1a2b; /* Darker red for borders or subtle accents */
-    
-    /* Accent colors */
-    --teal: #4fe1c4; /* Light teal used sparingly for progress bar or highlights */
-    --teal-light: #78f8e2; /* Light teal for hover and subtle accents */
-    --teal-dark: #2a8e7a; /* Darker teal for shadows and contrast */
-    
-    /* Neutral colors */
-    --gray-light: #b0b0b0; /* Light gray for soft accents */
-    --gray-dark: #555555; /* Dark gray for text and less important elements */
-    --black: #000000; /* Pure black for high contrast elements */
-}
-
+/* Modern Glassmorphism Base Styles */
 body {
-    background-color: var(--background);
-    color: var(--text);
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  min-height: 100vh;
+  margin: 0;
+  padding: 20px;
+  color: #2d3436;
 }
 
 .container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    margin-top: 120px;
-    max-width: 500px;
-    margin: 120px auto 0 auto;
+  max-width: 800px;
+  margin: 40px auto;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
+/* Header & Progress Bar */
 .stats-container {
-    padding: 30px;
-    border-radius: 20px;
-    border: 2px solid var(--red);
-    display: flex;
-    justify-content: space-between;
-    gap: 20px;
-    width: 100%;
-    background-color: var(--secondaryBackground); /* Add contrast with secondary background */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-.details {
-    width: 100%;
+.details h1 {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 700;
+  background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
-#progress {
-    width: 80%;
-    height: 10px;
-    background-color: var(--teal-dark); /* Darker teal for progress bar */
-    border-radius: 10px;
-    transition: all 0.3s ease;
+.details p {
+  margin: 5px 0 15px;
+  color: #636e72;
+  font-size: 14px;
 }
 
-#progressBar {
-    width: 100%;
-    height: 10px;
-    background-color: var(--secondaryBackground);
-    border-radius: 5px;
-    margin-top: 20px;
+.progress-bar {
+  width: 100%;
+  height: 12px;
+  background-color: rgba(236, 240, 241, 0.7);
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 10px 0;
 }
 
-#numbers {
-    width: 100px;
-    height: 100px;
-    background-color: var(--red);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    font-size: 20px;
-    font-weight: bold;
+.progress {
+  height: 100%;
+  background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%);
+  background-size: 200% 200%;
+  animation: gradientShift 3s ease infinite;
+  width: 0%;
+  transition: width 0.5s ease-out;
+  border-radius: 10px;
 }
 
-form {
-    margin-top: 60px;
-    width: 100%;
-    display: flex;
-    gap: 10px;
+.stats-number {
+  font-size: 24px;
+  font-weight: 700;
+  color: #2d3436;
 }
 
-input {
-    flex: 1;
-    padding: 16px;
-    background-color: var(--secondaryBackground);
-    border: 1px solid var(--red-dark); /* Darker red border for focus */
-    border-radius: 10px;
-    outline: none;
-    color: var(--text); /* White text for contrast */
+/* Task Form - Floating Glass Effect */
+#taskForm {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 30px;
+  background: rgba(255, 255, 255, 0.7);
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
 }
 
-button {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    align-items: center;
-    justify-content: center;
-    background-color: var(--red);
-    color: var(--teal-dark); /* Darker teal for button text */
-    font-size: 30px;
-    font-weight: bold;
-    outline: none;
+#taskinput, #taskDate {
+  flex: 1;
+  padding: 15px;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
 }
 
+#taskinput:focus, #taskDate:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(106, 17, 203, 0.3);
+  background: white;
+}
+
+#newtask {
+  background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 0 25px;
+  font-size: 28px;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(37, 117, 252, 0.3);
+  transition: all 0.3s ease;
+}
+
+#newtask:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(37, 117, 252, 0.4);
+}
+
+/* Task List - Card Design */
 #task-list {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-top: 30px;
-    width: 100%;
-    list-style: none;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 500px;
+  overflow-y: auto;
+  padding-right: 10px;
+}
+
+/* Custom Scrollbar */
+#task-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+#task-list::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
+}
+
+#task-list::-webkit-scrollbar-thumb {
+  background: linear-gradient(#6a11cb, #2575fc);
+  border-radius: 10px;
 }
 
 .taskitem {
-    width: 100%;
-    display: flex;
-    background-color: var(--secondaryBackground);
-    padding: 10px;
-    border-radius: 10px;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  margin-bottom: 15px;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  position: relative;
+  overflow: hidden;
 }
 
-.taskitem img {
-    width: 24px;
-    height: 24px;
-    margin: 0 10px;
-    cursor: pointer;
+.taskitem:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.taskitem.completed {
+  background: rgba(236, 240, 241, 0.6);
+}
+
+.taskitem.completed::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 4px;
+  background: linear-gradient(to bottom, #00b09b, #96c93d);
+}
+
+.taskitem.overdue {
+  background: rgba(255, 234, 234, 0.7);
+}
+
+.taskitem.overdue::before {
+  background: linear-gradient(to bottom, #ff416c, #ff4b2b);
 }
 
 .task {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  flex: 1;
 }
 
-.task input {
-    width: 20px;
-    height: 20px;
+/* Custom Checkbox */
+.checkbox {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  border: 2px solid #6a11cb;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.2s;
+  flex-shrink: 0;
 }
 
-/* Style for the task text when the checkbox is checked */
-.checkbox:checked + p {
-    text-decoration: line-through;
-    color: var(--teal); /* Teal for checked tasks */
+.checkbox:checked {
+  background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
 }
 
-/* Hover and focus effects for inputs and buttons */
-input:focus, button:hover {
-    border-color: var(--teal); /* Highlight border with teal on focus */
-    background-color: var(--teal-light); /* Light teal background on hover */
+.checkbox:checked::after {
+  content: "✓";
+  position: absolute;
+  color: white;
+  font-size: 14px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
-button:hover {
-    background-color: var(--red-light); /* Lighter red on button hover */
+.task-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+
+.task-text {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 500;
+  color: #2d3436;
+  transition: all 0.3s;
+}
+
+.taskitem.completed .task-text {
+  color: #636e72;
+  text-decoration: line-through;
+}
+
+.date-info {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  font-size: 14px;
+}
+
+.due-date {
+  color: #636e72;
+  font-size: 13px;
+}
+
+.days-remaining {
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 12px;
+  background: rgba(154, 236, 219, 0.3);
+  color: #00b894;
+}
+
+.days-remaining.urgent {
+  background: rgba(253, 203, 110, 0.3);
+  color: #e17055;
+}
+
+.days-remaining.overdue {
+  background: rgba(255, 118, 117, 0.3);
+  color: #d63031;
+  font-weight: 700;
+}
+
+.icons {
+  display: flex;
+  gap: 15px;
+}
+
+.icons img {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: all 0.2s;
+  filter: drop-shadow(0 2px 2px rgba(0,0,0,0.1));
+}
+
+.icons img:hover {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+/* Animations */
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    margin: 20px;
+    padding: 20px;
+  }
+  
+  #taskForm {
+    flex-direction: column;
+  }
+  
+  #taskDate {
+    width: 100%;
+  }
+  
+  .stats-container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .stats-number {
+    margin-top: 15px;
+  }
+}
+
+/* Floating Animation for Completed Tasks */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-5px); }
+  100% { transform: translateY(0px); }
+}
+
+.taskitem.completed {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Neon Glow for Urgent Tasks */
+.taskitem .days-remaining.urgent {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(253, 203, 110, 0.4); }
+  70% { box-shadow: 0 0 0 10px rgba(253, 203, 110, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(253, 203, 110, 0); }
 }

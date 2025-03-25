@@ -18,14 +18,27 @@ const fetchTasks = async () => {
   }
 };
 
+// Helper function to calculate days remaining
+const getDaysRemaining = (dueDate) => {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0); // Normalize to start of day
+  const due = new Date(dueDate);
+  due.setHours(0, 0, 0, 0);
+  const diffTime = due - today;
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  return diffDays;
+};
+
 // Function to add a new task
 const addTask = async (e) => {
   e.preventDefault();
 
   const taskInput = document.getElementById("taskinput");
+  const dateInput = document.getElementById("taskDate");
   const text = taskInput.value.trim();
+  const dueDate = dateInput.value;
 
-  if (text) {
+  if (text && dueDate) {
     try {
       // Try to add to server first
       const response = await fetch('http://localhost:5000/tasks', {
@@ -33,7 +46,7 @@ const addTask = async (e) => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ text }),
+        body: JSON.stringify({ text, dueDate }),
       });
       
       if (response.ok) {
@@ -43,6 +56,7 @@ const addTask = async (e) => {
         // Fallback to local storage if server fails
         const task = {
           text: text,
+          dueDate: dueDate,
           completed: false,
           id: Date.now() // Temporary ID for local storage
         };
@@ -51,18 +65,21 @@ const addTask = async (e) => {
       }
       
       taskInput.value = "";
+      dateInput.value = "";
       updateTasksList();
     } catch (error) {
       console.error('Error adding task:', error);
       // Fallback to local storage if fetch fails
       const task = {
         text: text,
+        dueDate: dueDate,
         completed: false,
         id: Date.now() // Temporary ID for local storage
       };
       tasks.push(task);
       localStorage.setItem('todo-tasks', JSON.stringify(tasks));
       taskInput.value = "";
+      dateInput.value = "";
       updateTasksList();
     }
   }
@@ -127,23 +144,29 @@ const deleteTask = async (index) => {
 // Function to edit a task
 const editTask = async (index) => {
   const task = tasks[index];
-  const newText = prompt("Edit task:", task.text);
+  const newText = prompt("Edit task text:", task.text);
+  const newDate = prompt("Edit due date (YYYY-MM-DD):", task.dueDate);
   
-  if (newText !== null && newText.trim() !== "") {
+  if (newText !== null && newText.trim() !== "" && newDate) {
     try {
       const response = await fetch(`http://localhost:5000/tasks/${task.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ text: newText.trim() }),
+        body: JSON.stringify({ 
+          text: newText.trim(), 
+          dueDate: newDate 
+        }),
       });
       
       if (response.ok) {
         tasks[index].text = newText.trim();
+        tasks[index].dueDate = newDate;
       } else {
         // Fallback to local storage
         tasks[index].text = newText.trim();
+        tasks[index].dueDate = newDate;
         localStorage.setItem('todo-tasks', JSON.stringify(tasks));
       }
       
@@ -152,6 +175,7 @@ const editTask = async (index) => {
       console.error('Error updating task:', error);
       // Fallback to local storage
       tasks[index].text = newText.trim();
+      tasks[index].dueDate = newDate;
       localStorage.setItem('todo-tasks', JSON.stringify(tasks));
       updateTasksList();
     }
@@ -163,18 +187,30 @@ const updateTasksList = () => {
   const taskList = document.getElementById("task-list");
   taskList.innerHTML = ""; // Clear the list before re-rendering
 
+  // Sort tasks by due date (earliest first)
+  tasks.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
+
   tasks.forEach((task, index) => {
     const listItem = document.createElement("li");
+    const daysRemaining = getDaysRemaining(task.dueDate);
 
     listItem.innerHTML = `
-    <div class="taskitem">
+    <div class="taskitem ${daysRemaining < 0 ? 'overdue' : ''} ${task.completed ? 'completed' : ''}">
       <div class="task">
         <input type="checkbox" class="checkbox" ${task.completed ? "checked" : ""} />
-        <p>${task.text}</p>
+        <div class="task-info">
+          <p class="task-text">${task.text}</p>
+          <div class="date-info">
+            <span class="due-date">Due: ${new Date(task.dueDate).toLocaleDateString()}</span>
+            <span class="days-remaining ${daysRemaining < 0 ? 'overdue' : ''} ${daysRemaining <= 3 ? 'urgent' : ''}">
+              ${daysRemaining < 0 ? 'Overdue!' : `${daysRemaining} day${daysRemaining !== 1 ? 's' : ''} left`}
+            </span>
+          </div>
+        </div>
       </div>
       <div class="icons">
-        <img src="./img/edit.png" onclick="editTask(${index})">
-        <img src="./img/bin.png" onclick="deleteTask(${index})">
+        <img src="./img/edit.png" alt="Edit" onclick="editTask(${index})">
+        <img src="./img/bin.png" alt="Delete" onclick="deleteTask(${index})">
       </div>
     </div>
     `;
@@ -244,5 +280,9 @@ const blaskconfetti = () => {
 // Attach the form submit event to the addTask function
 document.getElementById("taskForm").addEventListener("submit", addTask);
 
-// Initial fetch of tasks when the page loads
-document.addEventListener('DOMContentLoaded', fetchTasks);
+// Set minimum date to today for date picker
+document.addEventListener('DOMContentLoaded', () => {
+  const today = new Date().toISOString().split("T")[0];
+  document.getElementById("taskDate").min = today;
+  fetchTasks();
+});
