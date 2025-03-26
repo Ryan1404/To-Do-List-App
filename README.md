@@ -225,6 +225,31 @@ docker run -p 5000:5000 taskmaster-pro
 - Vercel (static frontend)
 - Heroku (full-stack)
 
+
+📬 Contact & Links
+
+👋 Connect With Me
+
+Contact Method	Link/Badge
+
+📧 Email	 maharajryan964@gmail.com
+
+💼 LinkedIn (https://www.linkedin.com/in/ryanmaharaj1404/)
+
+🐙 GitHub	[GitHub](https://github.com/Ryan1404)
+
+
+🔗 Project Links
+
+Resource	Link
+
+🌐 Live Demo	https://taskmaster-pro.example.com
+
+📂 Repositoryhttps://github.com/Ryan1404?tab=repositories
+
+📝 Documentation	https://github.com/Ryan1404/To-Do-List-App/blob/main/README.md
+
+
 ## 📜 License
 
 MIT License
