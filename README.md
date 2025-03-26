@@ -243,7 +243,7 @@ Contact Method	Link/Badge
 
 Resource	Link
 
-🌐 Live Demo	https://taskmaster-pro.example.com
+🌐 Live Demo	(https://ryan1404.github.io/To-Do-List-App/todo-app/public/)
 
 📂 Repositoryhttps://github.com/Ryan1404?tab=repositories
 
