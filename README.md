@@ -236,16 +236,16 @@ Contact Method	Link/Badge
 
 💼 LinkedIn (https://www.linkedin.com/in/ryanmaharaj1404/)
 
-🐙 GitHub	[GitHub](https://github.com/Ryan1404)
+🐙 GitHub	[GitHub Profile:](https://github.com/Ryan1404)
 
 
 🔗 Project Links
 
 Resource	Link
 
-🌐 Live Demo	(https://ryan1404.github.io/To-Do-List-App/todo-app/public/)
+🌐 Live Demo[Live Demo:](https://ryan1404.github.io/To-Do-List-App/todo-app/public/)
 
-📂 Repositoryhttps://github.com/Ryan1404?tab=repositories
+📂 Repository https://github.com/Ryan1404?tab=repositories
 
 📝 Documentation	https://github.com/Ryan1404/To-Do-List-App/blob/main/README.md
 
